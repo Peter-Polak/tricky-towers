@@ -34,11 +34,11 @@ public class Tetromino : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
                 {
-                    StartCoroutine(MoveOverTime(transform.position + Vector3.left / 2, 0.2f));
+                    MoveLeft();
                 }
                 else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
                 {
-                    StartCoroutine(MoveOverTime(transform.position + Vector3.right / 2, 0.2f));
+                    MoveRight();
                 }
             }
 
@@ -51,7 +51,7 @@ public class Tetromino : MonoBehaviour
                 }
             }
 
-            // Fast fall
+            // Fast fall?
             float actualFallSpeed = verticalSpeed;
 
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
@@ -72,9 +72,19 @@ public class Tetromino : MonoBehaviour
         Destroy(this);
     }
 
-    public void Rotate()
+    private void Rotate()
     {
         StartCoroutine(RotateOverTime(Vector3.forward, -90.0f, 0.2f));
+    }
+
+    private void MoveRight()
+    {
+        StartCoroutine(MoveOverTime(transform.position + Vector3.right / 2, 0.2f));
+    }
+
+    private void MoveLeft()
+    {
+        StartCoroutine(MoveOverTime(transform.position + Vector3.left / 2, 0.2f));
     }
 
     private IEnumerator RotateOverTime(Vector3 axis, float angle, float duration)
