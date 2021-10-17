@@ -8,8 +8,9 @@ public class SpawnManager : MonoBehaviour
     public delegate void SpawnAction(Tetromino tetromino);
     public event SpawnAction OnTetrominoSpawn;
 
-    public Tetromino activeTetromino;
     public Tetromino lastActiveTetromino;
+    public Tetromino activeTetromino;
+    public Tetromino nextTetromino;
 
     [SerializeField] private GameObject[] tetrominoPrefabs;
     [SerializeField] private Vector3 spawnPosition;
@@ -28,16 +29,23 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnNewTetromino()
     {
-        int randomTetrominoIndex = Random.Range(0, tetrominoPrefabs.Length - 1);
-        GameObject newTetrominoGameObject = Instantiate<GameObject>(tetrominoPrefabs[randomTetrominoIndex], spawnPosition, tetrominoPrefabs[randomTetrominoIndex].transform.rotation);
-
-        if(activeTetromino != null) activeTetromino.OnCollision -= SpawnNewTetromino;
+        GameObject newTetromino = GetRandomTetromino();
+        GameObject nextTetromino = GetRandomTetromino();
+        GameObject newTetrominoGameObject = Instantiate<GameObject>(newTetromino, spawnPosition, newTetromino.transform.rotation);
 
         lastActiveTetromino = activeTetromino;
         activeTetromino = newTetrominoGameObject.GetComponent<Tetromino>();
 
         activeTetromino.OnCollision += SpawnNewTetromino;
+        if(lastActiveTetromino != null) lastActiveTetromino.OnCollision -= SpawnNewTetromino;
 
         OnTetrominoSpawn?.Invoke(activeTetromino);
+    }
+
+    private GameObject GetRandomTetromino()
+    {
+        int randomTetrominoIndex = Random.Range(0, tetrominoPrefabs.Length - 1);
+
+        return tetrominoPrefabs[randomTetrominoIndex];
     }
 }
