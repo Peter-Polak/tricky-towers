@@ -66,6 +66,7 @@ public class Tetromino : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         rigidBody.useGravity = true;
+        rigidBody.velocity = Vector3.zero;
         isFalling = false;
         OnCollision?.Invoke();
 
@@ -87,6 +88,7 @@ public class Tetromino : MonoBehaviour
         StartCoroutine(MoveOverTime(transform.position + Vector3.left / 2, 0.2f));
     }
 
+    // Code from: http://answers.unity.com/answers/1236502/view.html Thanks!
     private IEnumerator RotateOverTime(Vector3 axis, float angle, float duration)
     {
         isRotating = true;
