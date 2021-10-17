@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4642693705376272295}
   - component: {fileID: 515870987760180429}
   - component: {fileID: -9102224495628809974}
-  - component: {fileID: -6999052560007296276}
+  - component: {fileID: -3318589558730005951}
   m_Layer: 0
   m_Name: J_Piece
   m_TagString: Untagged
@@ -161,7 +161,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 40
   m_CollisionDetection: 0
---- !u!114 &-6999052560007296276
+--- !u!114 &-3318589558730005951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,9 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67c73cecbb85b948938339b42e2ee16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalSpeed: 1
-  horizontalSpeed: 10
-  fastFallModifier: 5
+  despawnY: -5
 --- !u!1 &5106665522244864780
 GameObject:
   m_ObjectHideFlags: 0
