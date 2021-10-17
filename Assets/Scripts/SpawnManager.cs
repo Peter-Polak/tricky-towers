@@ -14,32 +14,66 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private GameObject[] tetrominoPrefabs;
     [SerializeField] private Vector3 spawnPosition;
+    [SerializeField] private GameObject nextTetrominoParent;
+    [SerializeField] private GameObject tetrominoesParent;
 
-    // Start is called before the first frame update
+
+    #region Monobehaviour
+
     void Start()
     {
-        SpawnNewTetromino();
+        SpawnNextTetromino();
+        SpawnTetromino();
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
+    #endregion
 
-    //}
-
-    private void SpawnNewTetromino()
+    private void SpawnTetromino()
     {
-        GameObject newTetromino = GetRandomTetromino();
+        DectivateActiveTetromino();
+        ActivateNextTetromino();
+        SpawnNextTetromino();
+    }
+
+    private void DectivateActiveTetromino()
+    {
+        if(activeTetromino != null)
+        {
+            lastActiveTetromino = activeTetromino;
+            lastActiveTetromino.OnCollision -= SpawnTetromino;
+        }
+    }
+
+    private void ActivateNextTetromino()
+    {
+        if (nextTetromino != null)
+        {
+            activeTetromino = nextTetromino;
+            activeTetromino.transform.parent = tetrominoesParent.transform;
+            activeTetromino.transform.position = spawnPosition;
+            activeTetromino.transform.rotation = Quaternion.Euler(Vector3.zero);
+            ChangeLayer(activeTetromino.transform, 8);
+
+            activeTetromino.OnCollision += SpawnTetromino;
+            OnTetrominoSpawn?.Invoke(activeTetromino);
+        }
+    }
+
+    private void SpawnNextTetromino()
+    {
         GameObject nextTetromino = GetRandomTetromino();
-        GameObject newTetrominoGameObject = Instantiate<GameObject>(newTetromino, spawnPosition, newTetromino.transform.rotation);
+        GameObject nextTetrominoGameObject = Instantiate<GameObject>(nextTetromino, nextTetrominoParent.transform.position, nextTetromino.transform.rotation, nextTetrominoParent.transform);
 
-        lastActiveTetromino = activeTetromino;
-        activeTetromino = newTetrominoGameObject.GetComponent<Tetromino>();
-
-        activeTetromino.OnCollision += SpawnNewTetromino;
-        if(lastActiveTetromino != null) lastActiveTetromino.OnCollision -= SpawnNewTetromino;
-
-        OnTetrominoSpawn?.Invoke(activeTetromino);
+        ChangeLayer(nextTetrominoGameObject.transform, 6);
+        this.nextTetromino = nextTetrominoGameObject.GetComponent<Tetromino>();
+    }
+    
+    private void ChangeLayer(Transform transform, int layerIndex)
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = layerIndex;
+        }
     }
 
     private GameObject GetRandomTetromino()
