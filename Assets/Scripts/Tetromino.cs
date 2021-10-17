@@ -25,12 +25,18 @@ public class Tetromino : MonoBehaviour
 
     private void Update()
     {
-        if(transform.position.y < despawnY)
+        if (transform.position.y < despawnY)
         {
             OnDespawn?.Invoke();
             Destroy(gameObject);
         }
     }
+
+    //void OnBecameInvisible()
+    //{
+    //    OnDespawn?.Invoke();
+    //    Destroy(gameObject);
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -38,6 +44,6 @@ public class Tetromino : MonoBehaviour
         rigidBody.velocity = Vector3.zero;
         OnCollision?.Invoke();
 
-        Destroy(this);
+        //Destroy(this);
     }
 }
