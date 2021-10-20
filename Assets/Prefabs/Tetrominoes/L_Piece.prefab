@@ -336,6 +336,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 2
+  height: 3
+  fallingMaterial: {fileID: 2100000, guid: 4a22f1ad480ade74c855e6fec3110dbf, type: 2}
+  placedMaterial: {fileID: 2100000, guid: fd15879740de78742bdaa480715cec01, type: 2}
   despawnY: -5
 --- !u!1 &8732377840984003925
 GameObject:

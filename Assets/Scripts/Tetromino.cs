@@ -13,9 +13,14 @@ public class Tetromino : MonoBehaviour
     public event CollisionAction OnDespawn;
 
     #endregion
+    
+    [HideInInspector] public bool IsRotating { private set; get; } = false;
+    [HideInInspector] public bool IsMovingHorizontaly { private set; get; } = false;
 
     public float width = 2;
     public float height = 3;
+    public Material fallingMaterial;
+    public Material placedMaterial;
 
     public float CurrentWidth { private set; get; }
 
@@ -23,16 +28,13 @@ public class Tetromino : MonoBehaviour
 
     private Rigidbody rigidBody;
 
-
-    [HideInInspector] public bool IsRotating { private set; get; } = false;
-    [HideInInspector] public bool IsMovingHorizontaly { private set; get; } = false;
-
     #region Monobehaviour
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         CurrentWidth = width;
+        SetMaterial(fallingMaterial);
     }
 
     private void Update()
@@ -49,6 +51,8 @@ public class Tetromino : MonoBehaviour
         rigidBody.useGravity = true;
         rigidBody.velocity = Vector3.zero;
         OnCollision?.Invoke();
+
+        SetMaterial(placedMaterial);
 
         //Destroy(this);
         enabled = false;
@@ -121,4 +125,13 @@ public class Tetromino : MonoBehaviour
     }
 
     #endregion
+
+    private void SetMaterial(Material material)
+    {
+        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (var meshRenderer in meshRenderers)
+        {
+            meshRenderer.material = material;
+        }
+    }
 }
