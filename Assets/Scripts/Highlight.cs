@@ -7,6 +7,8 @@ public class Highlight : MonoBehaviour
     [SerializeField] private SpawnManager spawnManager;
     private Tetromino tetromino;
 
+    #region Monobehaviour
+
     private void OnEnable()
     {
         spawnManager.OnTetrominoSpawn += OnTetrominoSpawnHandler;
@@ -24,6 +26,8 @@ public class Highlight : MonoBehaviour
             transform.position = new Vector3(tetromino.transform.position.x, transform.position.y, transform.position.z);
         }
     }
+
+    #endregion
 
     private void OnTetrominoSpawnHandler(Tetromino tetromino)
     {
