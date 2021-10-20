@@ -31,8 +31,19 @@ public class SpawnManager : MonoBehaviour
     private void SpawnTetromino()
     {
         DectivateActiveTetromino();
-        ActivateNextTetromino();
-        SpawnNextTetromino();
+
+        if(IsSpawnPointFree())
+        {
+            ActivateNextTetromino();
+            SpawnNextTetromino();
+        }
+    }
+
+    private bool IsSpawnPointFree()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(spawnPosition, 3);
+
+        return hitColliders.Length > 0 ? false : true;
     }
 
     private void DectivateActiveTetromino()
