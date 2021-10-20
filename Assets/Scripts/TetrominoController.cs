@@ -11,8 +11,7 @@ public class TetrominoController : MonoBehaviour
     private Tetromino tetromino;
     private Transform tetrominoTransform;
 
-    private bool isRotating = false;
-    private bool isMovingHorizontaly = false;
+    #region Monobehaviour
 
     private void OnEnable()
     {
@@ -28,24 +27,24 @@ public class TetrominoController : MonoBehaviour
     {
         if(tetromino != null)
         {
-            if (!isMovingHorizontaly)
+            if (!tetromino.IsMovingHorizontaly)
             {
                 if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
                 {
-                    MoveLeft();
+                    tetromino.MoveLeft();
                 }
                 else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
                 {
-                    MoveRight();
+                    tetromino.MoveRight();
                 }
             }
 
             // Rotate
-            if (!isRotating)
+            if (!tetromino.IsRotating)
             {
                 if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    Rotate();
+                    tetromino.RotateRight();
                 }
             }
 
@@ -62,71 +61,14 @@ public class TetrominoController : MonoBehaviour
         }
     }
 
+    #endregion
+
     #region Event callbacks
 
     private void SetControlledTetromino(Tetromino tetromino)
     {
         this.tetromino = tetromino;
         tetrominoTransform = tetromino.gameObject.transform;
-    }
-
-    #endregion
-
-    #region Tetromino controll and movement methods
-
-    private void Rotate()
-    {
-        StartCoroutine(RotateOverTime(Vector3.forward, -90.0f, 0.2f));
-    }
-
-    private void MoveRight()
-    {
-        StartCoroutine(MoveOverTime(tetrominoTransform.position + Vector3.right / 2, 0.2f));
-    }
-
-    private void MoveLeft()
-    {
-        StartCoroutine(MoveOverTime(tetrominoTransform.position + Vector3.left / 2, 0.2f));
-    }
-
-    // Code from: http://answers.unity.com/answers/1236502/view.html Thanks!
-    private IEnumerator RotateOverTime(Vector3 axis, float angle, float duration)
-    {
-        isRotating = true;
-
-        Quaternion originalRotation = tetrominoTransform.rotation;
-        Quaternion newRotation = originalRotation * Quaternion.Euler(axis * angle);
-
-        float elapsedTime = 0.0f;
-
-        while (elapsedTime < duration)
-        {
-            tetrominoTransform.rotation = Quaternion.Slerp(originalRotation, newRotation, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        tetrominoTransform.rotation = newRotation;
-        isRotating = false;
-    }
-
-    private IEnumerator MoveOverTime(Vector3 destination, float duration)
-    {
-        isMovingHorizontaly = true;
-
-        Vector3 origin = tetrominoTransform.position;
-
-        float elapsedTime = 0.0f;
-
-        while (elapsedTime < duration)
-        {
-            tetrominoTransform.localPosition = Vector3.Lerp(origin, destination, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        tetrominoTransform.localPosition = destination;
-        isMovingHorizontaly = false;
     }
 
     #endregion
