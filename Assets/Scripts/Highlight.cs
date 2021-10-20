@@ -18,8 +18,11 @@ public class Highlight : MonoBehaviour
 
     void Update()
     {
-        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, tetromino.width);
-        transform.position = new Vector3(tetromino.transform.position.x, transform.position.y, transform.position.z);
+        if(tetromino != null)
+        {
+            transform.localScale = new Vector3(tetromino.CurrentWidth / 10, transform.localScale.y, transform.localScale.z);
+            transform.position = new Vector3(tetromino.transform.position.x, transform.position.y, transform.position.z);
+        }
     }
 
     private void OnTetrominoSpawnHandler(Tetromino tetromino)
