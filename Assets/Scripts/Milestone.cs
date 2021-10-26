@@ -7,7 +7,7 @@ public class Milestone : MonoBehaviour
     public delegate void OnTriggerEnterAction(Tetromino tetromino);
     public event OnTriggerEnterAction OnTrigger;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         Tetromino tetromino = other.GetComponent<Tetromino>();
 
@@ -17,6 +17,7 @@ public class Milestone : MonoBehaviour
         {
             OnTrigger?.Invoke(tetromino);
             Debug.Log("Milestone reached!", tetromino);
+            gameObject.SetActive(false);
         }
     }
 }
