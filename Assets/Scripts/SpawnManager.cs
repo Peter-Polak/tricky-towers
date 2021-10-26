@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     public delegate void SpawnAction(Tetromino tetromino);
     public event SpawnAction OnTetrominoSpawn;
 
-    public Tetromino lastActiveTetromino;
+    public List<Tetromino> placedTetrominos;
     public Tetromino activeTetromino;
     public Tetromino nextTetromino;
 
@@ -50,8 +50,8 @@ public class SpawnManager : MonoBehaviour
     {
         if(activeTetromino != null)
         {
-            lastActiveTetromino = activeTetromino;
-            lastActiveTetromino.OnCollision -= SpawnTetromino;
+            activeTetromino.OnCollision -= SpawnTetromino;
+            placedTetrominos.Add(activeTetromino);
         }
     }
 
