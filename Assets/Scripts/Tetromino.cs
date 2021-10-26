@@ -70,7 +70,8 @@ public class Tetromino : MonoBehaviour
 
     public void Freeze()
     {
-        rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        //rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        rigidBody.isKinematic = true;
     }
 
     // Code from: http://answers.unity.com/answers/1236502/view.html Thanks!
