@@ -48,6 +48,7 @@ public class Tetromino : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        rigidBody.mass = 100;
         rigidBody.useGravity = true;
         rigidBody.velocity = Vector3.zero;
         OnCollision?.Invoke();
