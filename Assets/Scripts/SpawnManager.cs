@@ -103,6 +103,14 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private void FreezePlacedTeromionoes(int quantityFromEnd)
+    {
+        for (int index = placedTetrominoes.Count - quantityFromEnd; index < placedTetrominoes.Count; index++)
+        {
+            placedTetrominoes[index].Freeze();
+        }
+    }
+
     private void FreezePlacedTeromionoes()
     {
         placedTetrominoes.ForEach(
