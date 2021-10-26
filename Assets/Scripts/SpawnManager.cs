@@ -12,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     public Tetromino activeTetromino;
     public Tetromino nextTetromino;
 
+    [SerializeField] private GameObject milestonePrefab;
     [SerializeField] private GameObject[] tetrominoPrefabs;
     [SerializeField] private Vector3 spawnPosition;
     [SerializeField] private GameObject nextTetrominoParent;
@@ -24,6 +25,8 @@ public class SpawnManager : MonoBehaviour
     {
         SpawnNextTetromino();
         SpawnTetromino();
+        SpawnMilestone(new Vector3(0, 5, 0));
+
     }
 
     #endregion
@@ -37,6 +40,13 @@ public class SpawnManager : MonoBehaviour
             ActivateNextTetromino();
             SpawnNextTetromino();
         }
+    }
+
+    private void SpawnMilestone(Vector3 spawnPosition)
+    {
+        GameObject milestoneGameObject = Instantiate(milestonePrefab, spawnPosition, Quaternion.Euler(0, 0, 0));
+        Milestone milestone = milestoneGameObject.GetComponent<Milestone>();
+        milestone.OnTrigger += (Tetromino tetromino) => { FreezePlacedTeromionoes(); };
     }
 
     private bool IsSpawnPointFree()

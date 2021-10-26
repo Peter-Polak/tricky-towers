@@ -3,7 +3,12 @@ guid: c205523ee415c5e4e9b3b6ca538596d6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - activeTetromino: {instanceID: 0}
+  - nextTetromino: {instanceID: 0}
+  - milestonePrefab: {fileID: 5006261904882901275, guid: 9d08ec175592f9749824011372d7641e, type: 3}
+  - nextTetrominoParent: {instanceID: 0}
+  - tetrominoesParent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
