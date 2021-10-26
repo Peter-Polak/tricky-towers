@@ -65,6 +65,7 @@ public class SpawnManager : MonoBehaviour
             activeTetromino.transform.rotation = Quaternion.Euler(Vector3.zero);
             ChangeLayer(activeTetromino.transform, 8);
 
+            activeTetromino.StartFalling();
             activeTetromino.OnCollision += SpawnTetromino;
             OnTetrominoSpawn?.Invoke(activeTetromino);
         }

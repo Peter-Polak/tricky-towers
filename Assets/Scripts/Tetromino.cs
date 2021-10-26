@@ -10,10 +10,11 @@ public class Tetromino : MonoBehaviour
     public event CollisionAction OnCollision;
 
     public delegate void DespawnAction();
-    public event CollisionAction OnDespawn;
+    public event DespawnAction OnDespawn;
 
     #endregion
-    
+
+    public TetrominoStatus Status { private set; get; } = TetrominoStatus.INACTIVE;
     [HideInInspector] public bool IsRotating { private set; get; } = false;
     [HideInInspector] public bool IsMovingHorizontaly { private set; get; } = false;
 
@@ -23,8 +24,6 @@ public class Tetromino : MonoBehaviour
     public Material placedMaterial;
 
     public float CurrentWidth { private set; get; }
-
-    [SerializeField] private float despawnY = -5;
 
     private Rigidbody rigidBody;
 
@@ -37,26 +36,10 @@ public class Tetromino : MonoBehaviour
         SetMaterial(fallingMaterial);
     }
 
-    private void Update()
-    {
-        if (transform.position.y < despawnY)
-        {
-            OnDespawn?.Invoke();
-            Destroy(gameObject);
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        rigidBody.mass = 100;
-        rigidBody.useGravity = true;
-        rigidBody.velocity = Vector3.zero;
+        Place();
         OnCollision?.Invoke();
-
-        SetMaterial(placedMaterial);
-
-        //Destroy(this);
-        enabled = false;
     }
 
     #endregion
@@ -140,4 +123,26 @@ public class Tetromino : MonoBehaviour
             meshRenderer.material = material;
         }
     }
+
+    public void StartFalling()
+    {
+        Status = TetrominoStatus.FALLING;
+    }
+
+    public void Place()
+    {
+        Status = TetrominoStatus.PLACED;
+        rigidBody.mass = 100;
+        rigidBody.useGravity = true;
+        rigidBody.velocity = Vector3.zero;
+
+        SetMaterial(placedMaterial);
+    }
+}
+
+public enum TetrominoStatus
+{
+    INACTIVE,
+    FALLING,
+    PLACED
 }
