@@ -93,4 +93,14 @@ public class SpawnManager : MonoBehaviour
 
         return tetrominoPrefabs[randomTetrominoIndex];
     }
+
+    private void FreezePlacedTeromionoes()
+    {
+        placedTetrominos.ForEach(
+            (Tetromino tetromino) =>
+            {
+                tetromino.Freeze();
+            }
+        );
+    }
 }

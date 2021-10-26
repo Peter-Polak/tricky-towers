@@ -85,6 +85,11 @@ public class Tetromino : MonoBehaviour
         StartCoroutine(MoveOverTime(transform.position + Vector3.left / 2, 0.2f));
     }
 
+    public void Freeze()
+    {
+        rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
     // Code from: http://answers.unity.com/answers/1236502/view.html Thanks!
     private IEnumerator RotateOverTime(Vector3 axis, float angle, float duration)
     {
