@@ -286,9 +286,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c205523ee415c5e4e9b3b6ca538596d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastActiveTetromino: {fileID: 0}
+  placedTetrominoes: []
   activeTetromino: {fileID: 0}
   nextTetromino: {fileID: 0}
+  milestonePrefab: {fileID: 5006261904882901275, guid: 9d08ec175592f9749824011372d7641e, type: 3}
   tetrominoPrefabs:
   - {fileID: 5603747075035132187, guid: c025dee20dabfe344964ea72144f384f, type: 3}
   - {fileID: 3224266800551291002, guid: d794964a6d6a16046be48a17ea5ac2b5, type: 3}
