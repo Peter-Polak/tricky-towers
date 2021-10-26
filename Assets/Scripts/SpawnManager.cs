@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     public delegate void SpawnAction(Tetromino tetromino);
     public event SpawnAction OnTetrominoSpawn;
 
-    public List<Tetromino> placedTetrominos;
+    public List<Tetromino> placedTetrominoes;
     public Tetromino activeTetromino;
     public Tetromino nextTetromino;
 
@@ -51,7 +51,7 @@ public class SpawnManager : MonoBehaviour
         if(activeTetromino != null)
         {
             activeTetromino.OnCollision -= SpawnTetromino;
-            placedTetrominos.Add(activeTetromino);
+            placedTetrominoes.Add(activeTetromino);
         }
     }
 
@@ -94,9 +94,17 @@ public class SpawnManager : MonoBehaviour
         return tetrominoPrefabs[randomTetrominoIndex];
     }
 
+    private void FreezePlacedTeromionoes(int startIndexInc, int quantity)
+    {
+        for(int index = startIndexInc; index < startIndexInc + quantity; index++)
+        {
+            placedTetrominoes[index].Freeze();
+        }
+    }
+
     private void FreezePlacedTeromionoes()
     {
-        placedTetrominos.ForEach(
+        placedTetrominoes.ForEach(
             (Tetromino tetromino) =>
             {
                 tetromino.Freeze();
