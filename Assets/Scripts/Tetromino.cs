@@ -139,6 +139,12 @@ public class Tetromino : MonoBehaviour
 
         SetMaterial(placedMaterial);
     }
+
+    public void Despawn()
+    {
+        OnDespawn?.Invoke();
+        Destroy(gameObject);
+    }
 }
 
 public enum TetrominoStatus
