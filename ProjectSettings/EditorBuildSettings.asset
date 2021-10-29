@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Game Modes/RaceScene.unity
+    guid: c038f8dd77f386749b7e8295235152b4
+  - enabled: 1
+    path: Assets/Scenes/Game Modes/SurvivalScene.unity
+    guid: b28158546f60f3446ad8381779d83c0b
+  - enabled: 1
+    path: Assets/Scenes/Game Modes/PuzzleScene.unity
+    guid: fe77564887cd8ff45af1dd7f53ff08a2
   m_configObjects: {}
