@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameModesMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void StartRaceGame()
     {
-        
+        SceneManager.LoadScene(2);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartSurvivalGame()
     {
-        
+        SceneManager.LoadScene(3);
+    }
+
+    public void StartPuzzleGame()
+    {
+        SceneManager.LoadScene(4);
     }
 }
