@@ -18,7 +18,6 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private GameObject milestonePrefab;
     [SerializeField] private GameObject[] tetrominoPrefabs;
-    [SerializeField] private Vector3 spawnPosition;
     [SerializeField] private GameObject nextTetrominoParent;
     [SerializeField] private GameObject tetrominoesParent;
 
@@ -30,7 +29,6 @@ public class SpawnManager : MonoBehaviour
         SpawnNextTetromino();
         SpawnTetromino();
         SpawnMilestone(new Vector3(0, 5, 0));
-
     }
 
     #endregion
@@ -38,12 +36,8 @@ public class SpawnManager : MonoBehaviour
     private void SpawnTetromino()
     {
         DectivateActiveTetromino();
-
-        if(IsSpawnPointFree())
-        {
-            ActivateNextTetromino();
-            SpawnNextTetromino();
-        }
+        ActivateNextTetromino();
+        SpawnNextTetromino();
     }
 
     private void SpawnMilestone(Vector3 spawnPosition)
@@ -51,13 +45,6 @@ public class SpawnManager : MonoBehaviour
         GameObject milestoneGameObject = Instantiate(milestonePrefab, spawnPosition, Quaternion.Euler(0, 0, 0));
         Milestone milestone = milestoneGameObject.GetComponent<Milestone>();
         milestone.OnTrigger += (Tetromino tetromino) => { FreezePlacedTeromionoes(); };
-    }
-
-    private bool IsSpawnPointFree()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(spawnPosition, 3);
-
-        return hitColliders.Length > 0 ? false : true;
     }
 
     private void DectivateActiveTetromino()
@@ -75,7 +62,6 @@ public class SpawnManager : MonoBehaviour
         if (nextTetromino != null)
         {
             Vector3 newSpawnPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height, Camera.main.transform.position.z * -1));
-            Debug.Log(newSpawnPosition);
 
             activeTetromino = nextTetromino;
             activeTetromino.transform.parent = tetrominoesParent.transform;
