@@ -421,7 +421,6 @@ MonoBehaviour:
   height: 2
   fallingMaterial: {fileID: 2100000, guid: b96d1e1ff61c26249a76c726e86e2922, type: 2}
   placedMaterial: {fileID: 2100000, guid: 55ecf375d92e0404ca145a767167b454, type: 2}
-  despawnY: -5
 --- !u!108 &2631687891843495586
 Light:
   m_ObjectHideFlags: 0
