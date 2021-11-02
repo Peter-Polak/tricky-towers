@@ -66,6 +66,7 @@ public class SpawnManager : MonoBehaviour
         {
             activeTetromino.OnCollision -= SpawnTetromino;
             placedTetrominoes.Add(activeTetromino);
+            activeTetromino = null;
         }
     }
 
@@ -73,9 +74,12 @@ public class SpawnManager : MonoBehaviour
     {
         if (nextTetromino != null)
         {
+            Vector3 newSpawnPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height, Camera.main.transform.position.z * -1));
+            Debug.Log(newSpawnPosition);
+
             activeTetromino = nextTetromino;
             activeTetromino.transform.parent = tetrominoesParent.transform;
-            activeTetromino.transform.position = spawnPosition;
+            activeTetromino.transform.position = newSpawnPosition;
             activeTetromino.transform.rotation = Quaternion.Euler(Vector3.zero);
             ChangeLayer(activeTetromino.transform, 8);
 
