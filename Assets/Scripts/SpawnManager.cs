@@ -5,8 +5,12 @@ using UnityEngine.Events;
 
 public class SpawnManager : MonoBehaviour
 {
+    #region Events
+
     public delegate void SpawnAction(Tetromino tetromino);
     public event SpawnAction OnTetrominoSpawn;
+
+    #endregion
 
     public List<Tetromino> placedTetrominoes;
     public Tetromino activeTetromino;
